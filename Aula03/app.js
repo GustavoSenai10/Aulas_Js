@@ -15,23 +15,33 @@ var entradaDeDados = readline.createInterface({
     output: process.stdout
 })
 // criando a function para a entrada de dados 
-entradaDeDados.question('digite uma operação: \n', function(operacao){
-
-    let operacao = operacao
+entradaDeDados.question('Bem vindo, calculadora \n',function(calculadora){
     
-    entradaDeDados.question ('Digite o primeiro número: \n',function(_valor1){
-        let _valor1 = n1
-
-        entradaDeDados.question('Digite o segundo número: \n', function(_valor2){
-            let _valor2 = n2
-
-        resultado = n1 + n2
-
-
-        }) 
-
-
-    })
-
+    console.log
+    entradaDeDados.question('digite uma operação: \n , 1-soma \n 2-subtrção 3-multiplicação 4-divisão\n',  function(operacao){
+        let operacao
+        let soma 
+        let subtracao
+        let multiplicacao
+        let divisao
+        
+        
+       if(operacao == 1){
+           console.log('Você escolheu soma \n')
+           soma = Number(n1) + Number(n2)
+           console.log('o resultado é:' + soma + '\n')
+    
+    
+       }
+    
+    
+    
+    
+    
 })
+
+
+
+
+
     

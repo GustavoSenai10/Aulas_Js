@@ -20,7 +20,7 @@ const validacaoMedia = function (numero1, numero2, numero3, numero4,exameA) {
         console.log(resultado)
     } if (resultado > 70) {
         console.log('Aluno aprovado')
-    } else if (exame >= 50 && exame <= 69) {
+    } else if (resultado >= 50 && resultado <= 69) {
         status = true
     } else if (resultado < 50) {
         console.log('Aluno Reprovado')

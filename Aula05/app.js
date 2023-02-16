@@ -6,7 +6,8 @@
  ***********************************/
 
 var readline = require('readline')
-var media = require('./modulo/universidade.js')
+var media = require('./modulo/universidade.js');
+const { Console } = require('console');
 
 var entradaDados = readline.createInterface({
     input: process.stdin,
@@ -41,6 +42,7 @@ entradaDados.question('Nome do Professor(a): \n', function (professor) {
                                 
                                     entradaDados.question('Insira a nota do exame\n',function(exameA){
                                         let exame = exameA  
+                                        Console.log(exameA)
                                         
                                     })
                                    

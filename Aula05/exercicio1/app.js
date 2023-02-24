@@ -16,7 +16,9 @@ var entradaDados = readline.createInterface({
 
 entradaDados.question('Nome do professor (A): \n', function (professor) {
     entradaDados.question('Sexo do professor(A): \n 1- M ou 2- F\n', function (sexoP) {
-
+        entradaDados.question('Nome do aluno (A): \n', function(aluno){
+            entradaDados.question('sexo do aluno(A):')
+        })
 
 
         entradaDados.question('Digite a Primeira nota:\n', function (nota1) {

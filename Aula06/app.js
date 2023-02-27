@@ -11,6 +11,15 @@
 const listaNomes = ['José', 'Maria', 'luiz', 'Antonio', 'Ana', 'Carlos', 20, true];
 const listaProdutos = ['teclado', 'Mouse', 'Monitor', 'Gabinete', 'HDD', 'Memoria'];
 
+/**
+ * JSON é composto: chave (atributo) e valor 
+ * 
+ *  chave  valor  chave        valor       chave      valor   
+ * {nome: 'josé', celular : '11997777777', email: 'jose@gmail.com'}
+ * 
+ * 
+ */
+
 const exibindoDados = function () {
 
 
@@ -99,7 +108,7 @@ const manipulandoDados = function () {
     } else {
         console.log('item não encontrado')
     }
-}
+};
 
 
 const removerProduto = function (nomeProduto) {
@@ -119,31 +128,133 @@ const removerProduto = function (nomeProduto) {
     }
     return status;
 
-}
+};
 
-const removerItens =  function(itensRemovidos){
+const removerItens = function (itensRemovidos) {
 
     let itens = itensRemovidos
     let tamanho = listaProdutos.indexOf(itens)
     const novaArray = listaProdutos.slice()
     let status
-    
+
     if (tamanho >= 0) {
-        listaProdutos.splice(tamanho,1)
+        listaProdutos.splice(tamanho, 1)
         status = true
-    }else {
-        console.log(status = false)
+    } else {
+        return false
     }
     return novaArray
 
 }
+
+const listagemProdutos = function () {
+    //Forma de n°1 de criar um JSON e já atribuir  chaves e valores 
+    //let listagemProdutosJSON = {produtos: listaProtudos , clientes : listaNomes};
+
+    //Fomra nº2 de cirar um JSON, ode as chaves e valores são atribuidos ao decorrer do projeto 
+    // let listProdutosJson = {produtos: listaProdutos, clientes: listaNomes}
+
+        //listProdutosJson.produtos = listaProdutos;
+        //listProdutosJson.clientes = listaNomes;
+
+    // console.log(listProdutosJson)
+    // console.log(listProdutosJson.produtos[1]);
+    // console.log(listProdutosJson.clientes[1])
+
+
+    let listagemProdutosJSON = {}
+    let listagemProdutosArray = [
+        { nome: 'Monitor', quantidade: 300, marca: 'DELL', valor: 1000, codigo: 1 }, 
+        { nome: 'Monitor', quantidade: 300, marca: 'LG', valor: 500, codigo: 2 },
+        { nome: 'Teclado', quantidade: 100, marca: 'Logitech', valor: 700, codigo: 3 }, 
+        { nome: 'Teclado', quantidade: 400, marca: 'radDragon', valor: 56, codigo: 4 }, 
+        { nome: 'Teclado', quantidade: 1000, marca: 'Cavalo', valor: 200, codigo: 5 }, 
+        { nome: 'Teclado', quantidade: 400, marca: 'G', valor: 120, codigo: 6 }, 
+        { nome: 'Mouse', quantidade: 100, marca: 'Razer', valor: 800, codigo: 7 }, 
+
+    ];
+    
+
+    // arrays para cores
+    let listCoresDellArray= ['Preto', 'Branco', 'Cinza'];
+    let listCoresLgArray= ['Preto', 'Cinza'];
+    let listCoresTecladoArray = ['Preto', 'Cinza', 'Azul' , 'Rosa', 'Cinza'];
+    let listCoresMouseArray = ['Preto', 'Cinza', 'Azul' , 'Rosa', 'Cinza', 'Verde','Vermelho','Amarelo', 'Roxo']
+
+    //arrays para modelos
+    let listModelosMonitor =['LCD', 'lED' , 'OLED','4k', 'IPS']
+    let listModelosTeclados =['mecânico', 'semi-mecânico' , 'Membrana','Ópticos']
+    
+    //Adiciona o  array de produtos dentro de um Json
+    listagemProdutosJSON.produtos = listagemProdutosArray
+
+    listagemProdutosJSON.produtos[0].cores = listCoresDellArray 
+
+    listagemProdutosJSON.produtos[1].cores = listCoresLgArray
+    
+    listagemProdutosJSON.produtos[2].cores = listCoresMouseArray
+    
+    listagemProdutosJSON.produtos[3].cores = listCoresTecladoArray
+    
+    listagemProdutosJSON.produtos[4].cores = listCoresTecladoArray
+    
+    listagemProdutosJSON.produtos[4].cores = listCoresTecladoArray 
+    
+    listagemProdutosJSON.produtos[5].cores = listCoresMouseArray 
+
+    //adicionar modelos aos Monitores
+    listagemProdutosJSON.produtos[0].modelos = listModelosMonitor
+    listagemProdutosJSON.produtos[1].modelos = listModelosMonitor
+
+    //adicionar modelos Teclados 
+    listagemProdutosJSON.produtos[2].modelos = listModelosTeclados
+    listagemProdutosJSON.produtos[3].modelos = listModelosTeclados
+    listagemProdutosJSON.produtos[4].modelos = listModelosTeclados
+    listagemProdutosJSON.produtos[5].modelos = listModelosTeclados
+
+    //Adicionar corres ao Monitor  DELL
+    
+    // console.log('Nome: ' + listagemProdutosJSON.produtos[1].nome)
+    // console.log('Marca: ' + listagemProdutosJSON.produtos[1].marca)
+    // console.log('Valor: ' + listagemProdutosJSON.produtos[1].valor)
+    // console.log('cor: ' + listagemProdutosJSON.produtos[1].cores[1])
+    // console.log('Modelo: ' + listagemProdutosJSON.produtos[1].modelos[1])
+
+
+    let cont = 0
+    let quantidade = listagemProdutosArray.length
+    while (cont < quantidade) {
+        console.log(`Nome: ${listagemProdutosJSON.produtos[cont].nome}` )
+        console.log(`Marca: ${listagemProdutosJSON.produtos[cont].marca}` )
+        console.log(`Valor: ${listagemProdutosJSON.produtos[cont].valor}` )
+        console.log(`Valor: ${listagemProdutosJSON.produtos[cont].cores[1]}` )
+
+        cont +=1
+    }
+
+    // listagemProdutosArray.forEach(function(tela) {
+    //     console.log(`Nome : ${listagemProdutosJSON.produtos[0].nome}`)
+    //     listagemProdutosArray.forEach(function(cores){
+    //         console.log(`cor ${listagemProdutosJSON.produtos[1].cores[1]}`)
+    //     })
+
+
+    //  });
+
+   
+    
+};
+
+listagemProdutos();
+
+
+
+
 //manipulandoDados();
 // console.table(listaProdutos)
-// console.log(removerProduto('Mouse'))
 // console.table(listaProdutos)
-
-console.log(removerItens('PC'));
-console.log(listaProdutos)
+//console.log(removerItens('PC'));
+//console.log(listaProdutos)
 
 
 

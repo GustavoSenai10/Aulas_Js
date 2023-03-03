@@ -154,8 +154,8 @@ const listagemProdutos = function () {
     //Fomra nº2 de cirar um JSON, ode as chaves e valores são atribuidos ao decorrer do projeto 
     // let listProdutosJson = {produtos: listaProdutos, clientes: listaNomes}
 
-        //listProdutosJson.produtos = listaProdutos;
-        //listProdutosJson.clientes = listaNomes;
+    //listProdutosJson.produtos = listaProdutos;
+    //listProdutosJson.clientes = listaNomes;
 
     // console.log(listProdutosJson)
     // console.log(listProdutosJson.produtos[1]);
@@ -164,43 +164,43 @@ const listagemProdutos = function () {
 
     let listagemProdutosJSON = {}
     let listagemProdutosArray = [
-        { nome: 'Monitor', quantidade: 300, marca: 'DELL', valor: 1000, codigo: 1 }, 
+        { nome: 'Monitor', quantidade: 300, marca: 'DELL', valor: 1000, codigo: 1 },
         { nome: 'Monitor', quantidade: 300, marca: 'LG', valor: 500, codigo: 2 },
-        { nome: 'Teclado', quantidade: 100, marca: 'Logitech', valor: 700, codigo: 3 }, 
-        { nome: 'Teclado', quantidade: 400, marca: 'radDragon', valor: 56, codigo: 4 }, 
-        { nome: 'Teclado', quantidade: 1000, marca: 'Cavalo', valor: 200, codigo: 5 }, 
-        { nome: 'Teclado', quantidade: 400, marca: 'G', valor: 120, codigo: 6 }, 
-        { nome: 'Mouse', quantidade: 100, marca: 'Razer', valor: 800, codigo: 7 }, 
+        { nome: 'Teclado', quantidade: 100, marca: 'Logitech', valor: 700, codigo: 3 },
+        { nome: 'Teclado', quantidade: 400, marca: 'radDragon', valor: 56, codigo: 4 },
+        { nome: 'Teclado', quantidade: 1000, marca: 'Cavalo', valor: 200, codigo: 5 },
+        { nome: 'Teclado', quantidade: 400, marca: 'G', valor: 120, codigo: 6 },
+        { nome: 'Mouse', quantidade: 100, marca: 'Razer', valor: 800, codigo: 7 },
 
     ];
-    
+
 
     // arrays para cores
-    let listCoresDellArray= ['Preto', 'Branco', 'Cinza'];
-    let listCoresLgArray= ['Preto', 'Cinza'];
-    let listCoresTecladoArray = ['Preto', 'Cinza', 'Azul' , 'Rosa', 'Cinza'];
-    let listCoresMouseArray = ['Preto', 'Cinza', 'Azul' , 'Rosa', 'Cinza', 'Verde','Vermelho','Amarelo', 'Roxo']
+    let listCoresDellArray = ['Preto', 'Branco', 'Cinza'];
+    let listCoresLgArray = ['Preto', 'Cinza'];
+    let listCoresTecladoArray = ['Preto', 'Cinza', 'Azul', 'Rosa', 'Cinza'];
+    let listCoresMouseArray = ['Preto', 'Cinza', 'Azul', 'Rosa', 'Cinza', 'Verde', 'Vermelho', 'Amarelo', 'Roxo']
 
     //arrays para modelos
-    let listModelosMonitor =['LCD', 'lED' , 'OLED','4k', 'IPS']
-    let listModelosTeclados =['mecânico', 'semi-mecânico' , 'Membrana','Ópticos']
-    
+    let listModelosMonitor = ['LCD', 'lED', 'OLED', '4k', 'IPS']
+    let listModelosTeclados = ['mecânico', 'semi-mecânico', 'Membrana', 'Ópticos']
+
     //Adiciona o  array de produtos dentro de um Json
     listagemProdutosJSON.produtos = listagemProdutosArray
 
-    listagemProdutosJSON.produtos[0].cores = listCoresDellArray 
+    listagemProdutosJSON.produtos[0].cores = listCoresDellArray
 
     listagemProdutosJSON.produtos[1].cores = listCoresLgArray
-    
+
     listagemProdutosJSON.produtos[2].cores = listCoresMouseArray
-    
+
     listagemProdutosJSON.produtos[3].cores = listCoresTecladoArray
-    
+
     listagemProdutosJSON.produtos[4].cores = listCoresTecladoArray
-    
-    listagemProdutosJSON.produtos[4].cores = listCoresTecladoArray 
-    
-    listagemProdutosJSON.produtos[5].cores = listCoresMouseArray 
+
+    listagemProdutosJSON.produtos[4].cores = listCoresTecladoArray
+
+    listagemProdutosJSON.produtos[5].cores = listCoresMouseArray
 
     //adicionar modelos aos Monitores
     listagemProdutosJSON.produtos[0].modelos = listModelosMonitor
@@ -213,7 +213,7 @@ const listagemProdutos = function () {
     listagemProdutosJSON.produtos[5].modelos = listModelosTeclados
 
     //Adicionar corres ao Monitor  DELL
-    
+
     // console.log('Nome: ' + listagemProdutosJSON.produtos[1].nome)
     // console.log('Marca: ' + listagemProdutosJSON.produtos[1].marca)
     // console.log('Valor: ' + listagemProdutosJSON.produtos[1].valor)
@@ -221,16 +221,46 @@ const listagemProdutos = function () {
     // console.log('Modelo: ' + listagemProdutosJSON.produtos[1].modelos[1])
 
 
-    let cont = 0
-    let quantidade = listagemProdutosArray.length
-    while (cont < quantidade) {
-        console.log(`Nome: ${listagemProdutosJSON.produtos[cont].nome}` )
-        console.log(`Marca: ${listagemProdutosJSON.produtos[cont].marca}` )
-        console.log(`Valor: ${listagemProdutosJSON.produtos[cont].valor}` )
-        console.log(`Valor: ${listagemProdutosJSON.produtos[cont].cores[1]}` )
+    // ***********minha versão do exercicio*****************************
 
-        cont +=1
-    }
+    // let cont = 0
+    // let quantidade = listagemProdutosArray.length
+    // while (cont < quantidade) {
+    //     console.table(`Nome: ${listagemProdutosJSON.produtos[cont].nome}` )
+
+    //     console.table(`Marca: ${listagemProdutosJSON.produtos[cont].marca}` )
+    //     console.table(`Valor: ${listagemProdutosJSON.produtos[cont].valor}` )
+    //     console.table(`Modelos: ${listagemProdutosJSON.produtos[cont].cores}` )
+    //     console.log('**************************************************')
+    //     cont +=1
+    // }
+
+
+
+    // **************************versão do professor*****************
+    //percorre o array de produtos para listar os itens
+    // listagemProdutosJSON.produtos.forEach(function (item) {
+    //     console.log('nome:' + item.nome)
+    //     console.log('nome:' + item.marca)
+
+    //     if (item.cores != undefined) {
+    //         //percorre o array de cores que ta dentro darray de produtos(item)
+    //         item.cores.forEach(function (itemCor) {
+
+    //             console.log('****Cores:' + itemCor);
+
+    //         })
+
+    //     }
+    //     // Tratamento de erro
+    //     if ((itemProdutos.modelos != undefined)) {
+    //         itemProdutos.modelos.forEach(function (itemModelo) {
+    //             console.log('****Modelos' + itemModelo)
+    //         })
+
+    //     }
+
+    // })
 
     // listagemProdutosArray.forEach(function(tela) {
     //     console.log(`Nome : ${listagemProdutosJSON.produtos[0].nome}`)
@@ -241,8 +271,8 @@ const listagemProdutos = function () {
 
     //  });
 
-   
-    
+
+
 };
 
 listagemProdutos();

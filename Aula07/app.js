@@ -15,13 +15,13 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 
 //Import do arquivo no modulo (funções)
-const estadosCidades = require('./modulo/modulo.js')
+const estadosCidades = require('./module.js')
 const { request, response } = require('express')
 
 //Cria um objeto com as características do express
 const app = express()
 
-app.use((request,response,next)=>{
+app.use((request, response, next) => {
 
     //API publica- fica disponível para utlização de qualquer aplicação
     //API privada - somemte o IP informado poderá consumir dados da API
@@ -43,10 +43,12 @@ app.use((request,response,next)=>{
 //obs: se não usar o asyn, a requisição é perdida pois o front acha que API está do ar
 
 //Endpoint para listar todos os estados
-app.get('/estados',cors(),async function(request,response,next){
+app.get('/v1/senai/estados', cors(), async function (request, response, next) {
 
     //Chama a função que vai listar todos os estados 
-    let estados = estadosCidades.getListaDeEstados
+    let estados = estadosCidades.getListaDeEstados()
+
+    console.log(estados)
 
     //Tratamento para validar o sucesso da requisição
     if (estados) {
@@ -54,10 +56,11 @@ app.get('/estados',cors(),async function(request,response,next){
         response.json(estados)
     } else {
         response.status(500)
+        response.json()
     }
 })
 //EndPoint: Listar os dados do estado filtrando pela sigla do estado
-app.get('/estado/:uf', cors(), async function (request, response, next) {
+app.get('/v1/senai/estado/sigla/:uf', cors(), async function (request, response, next) {
 
     let statusCode
     let dadosEstado = {}
@@ -89,7 +92,7 @@ app.get('/estado/:uf', cors(), async function (request, response, next) {
     response.json(dadosEstado)
 })
 
-app.get('/estado/capital/:uf', cors(), async function (request, response, next) {
+app.get('/v1/senai/estado/capital/:uf', cors(), async function (request, response, next) {
 
     let statusCode
     let dadosEstado = {}
@@ -116,7 +119,7 @@ app.get('/estado/capital/:uf', cors(), async function (request, response, next) 
     response.json(dadosEstado)
 })
 
-app.get('/estado/regiao/:regiao', cors(), async function (request, response, next) {
+app.get('/v1/senai/estado/regiao/:regiao', cors(), async function (request, response, next) {
     let statusCode
     let dadosRegiao = {}
 
@@ -142,7 +145,7 @@ app.get('/estado/regiao/:regiao', cors(), async function (request, response, nex
     response.json(dadosRegiao)
 })
 
-app.get('/pais/capital/', cors(), async function (request, response, next) {
+app.get('/v1/senia/pais/capital/', cors(), async function (request, response, next) {
 
 
     let statusCode
@@ -163,13 +166,13 @@ app.get('/pais/capital/', cors(), async function (request, response, next) {
     response.json(dadosCapital)
 })
 
-app.get('/estado/cidades/:uf', cors(), async function(request, response, next){
+app.get('/v1/senai/cidades/estado/siglas/:uf', cors(), async function (request, response, next) {
 
     let statusCode
     let dadosCidades = {}
     let siglaCidade = request.params.uf
 
-    
+
 
     if (siglaCidade.length != 2 || !isNaN(siglaCidade) || siglaCidade == undefined || siglaCidade == '') {
 
@@ -179,7 +182,7 @@ app.get('/estado/cidades/:uf', cors(), async function(request, response, next){
     } else {
         let cidades = estadosCidades.getCidades(siglaCidade)
 
-        if(cidades) {
+        if (cidades) {
             statusCode = 200
             dadosCidades = cidades
         } else {
@@ -191,7 +194,53 @@ app.get('/estado/cidades/:uf', cors(), async function(request, response, next){
 
 })
 
+app.get('/v2/senai/cidades', cors(), async function (request, response, next) {
+
+    /*
+        Existe duas opções para receer variáveis para filtro:
+
+            -perams-que permite receber a variavel na estrutura da URL
+            craiada no entPoint (geralmente utilizado para ID (PK))
+
+            -query- também conhceido como QueryString  per permite receber uma ou muitas variaves para 
+            realizar filtros  avançados
+    
+    */
+
+    //Recebe uma variavel encaminhada via QueryString 
+    let siglaEstado = request.query.uf;
+    //let cepEstado = request.query.cep;
+    //let populacaoEstado = request.query.populacao;
+
+    let statusCode
+    let dadosCidades = {}
+
+
+
+    if (siglaCidade.length != 2 || !isNaN(siglaCidade) || siglaCidade == undefined || siglaCidade == '') {
+
+        statusCode = 400
+
+        dadosEstado.message = 'Não foi possível acessar os dados de entrada (uf) que foi enviado, pois não corresponde ao exigido, confira o valor,  pois não pode ser vazio, precisa ser caracteres e ter duas letras'
+    } else {
+        let cidades = estadosCidades.getCidades(siglaCidade)
+
+        if (cidades) {
+            statusCode = 200
+            dadosCidades = cidades
+        } else {
+            statusCode = 404
+        }
+    }
+    response.status(statusCode)
+    response.json(dadosCidades)
+
+
+})
+
+
 //Roda o serviço da API para ficar aguardando requisições
 app.listen(8080, function () {
     console.log('Servidor aguardando requisições na porta 8080.')
 })
+

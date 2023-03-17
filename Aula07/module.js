@@ -167,5 +167,13 @@ const getCidades = function (sigla) {
     }
     
 }
+module.exports={
+    getListaDeEstados,
+    getDadosEstado,
+    getCapitalEstado,
+    getEstadosRegiao,
+    getCapitalPais,
+    getCidades
 
-getListaDeEstados()
+
+}

@@ -56,9 +56,11 @@ app.use((require, response, next) => {
  * 
 */
 //Import do aquivo da controler que irá solicitar a modelo os daods do BD
+ var controllerAluno = require('./controller/controller_aluno.js')
 
- var controllerAlunosid = require('./controller/controller_aluno.js')
-//EndPoint: retorna todos os dados  de alunos
+ const bodyParserJson = bodyParser.json
+
+ //EndPoint: retorna todos os dados  de alunos
 app.get('/v1/lion-school/aluno', cors(), async function (request, response) {
     
     //Recebe os dados da controller de aluno
@@ -77,25 +79,19 @@ app.get('/v1/lion-school/aluno', cors(), async function (request, response) {
 })
 //EndPoint: retorna o aluno filtrando pelo ID
 app.get('/v1/lion-school/aluno/:id', cors(), async function (request, response) {
-
-   
-
-    let id = request.params.id
-
-    let idAlunos = await controllerAlunosid.getBuscarAlunoID(id)
-
-    if(idAlunos){
-        response.json(idAlunos)
-        response.status(200)
-    }else{
-        response.json()
-        response.status(400)
-    }
 })
 
 //EndPoint: insere um dado novo 
-app.post('/v1/lion-school/aluno', cors(), async  function (request, response) {
+app.post('/v1/lion-school/aluno', cors(), bodyParserJson,  async  function (request, response) {
+    
+    
+    //Recebe os dados emcaminhda nas requisição    
+    let dadosBody = request.body
+    
+    let resultDadosAlunos = await controllerAluno.inserirAluno(dadosBody)
 
+    response.status((await resultDadosAlunos).status)    
+    response.json(resultDadosAlunos)
 })
 
 //EndPoint: atualiza um aluno existente, filtrando pelo ID

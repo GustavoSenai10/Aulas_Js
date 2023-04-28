@@ -8,8 +8,34 @@
 //import da biblioteca do prisma client
 var { PrismaClient, Prisma } = require('@prisma/client')
 
+//Instancia da classe PrismaClient 
+var Prisma = new PrismaClient()
+
 //Inserir o novo Aluno
-const inserirAluno = function (dadosAluno) {
+const inserirAluno =  async function (dadosAluno) {
+    //script sql para inserir dados
+    let sql = `insert into tbl_aluno(
+
+        nome,
+        rg,
+        cpf,
+        data_nascimento,
+        email
+        ) valeus (
+        '${dadosAluno.nome}',
+        '${dadosAluno.rg}',
+        '${dadosAluno.cpf}',
+        '${dadosAluno.data_nascimento}',
+        '${dadosAluno.email}',
+    )`
+  
+    //Execulta o script no MySql
+    let resultstatus = await Prisma.$executeRawUnsafe(sql)
+  
+    if(resultstatus)
+        return true;
+    else
+        return false
 
 }
 
@@ -31,18 +57,12 @@ const getAlunos = function () {
 //Retorna Todos os alunos pelo banco de dados  
 const selectAllAlunoID = async function (id) {
 
-
-
-
-    //Instancia da classe PrismaClient 
-    let prisma = new PrismaClient()
-
     //ScriptSQL para buscar todos os itens no DB
     let sql = 'select * from tbl_aluno'
 
     //$queryRawUnsafe() permite interpretar uma variável como sendo um ScriptMYSQL
     //$queryRaw('select * from tbl_aluno') - permite interpretar o script sql direto no metodo 
-    let rsAluno = await prisma.$queryRawUnsafe(sql)
+    let rsAluno = await Prisma.$queryRawUnsafe(sql)
 
     //Valida se o banco de dados retornou algum registro
     if (rsAluno.length > 0)
@@ -56,20 +76,11 @@ const selectAllAlunoID = async function (id) {
 
 //Retorna o aluno filtrado pelo ID  
 const selectBYAlunoID = async function (id) {
-    let prismaid = new PrismaClient()
 
-    
-    let sql = 'select * from tbl_aluno where id = ' + id
-
-    let idAluno = await prismaid.$queryRawUnsafe(sql)
-
-    if(idAluno.length > 0 )
-        return idAluno
-    else 
-        return false
 }
 
 module.exports = {
     selectAllAlunoID,
-    selectBYAlunoID
+    inserirAluno
+    
 }

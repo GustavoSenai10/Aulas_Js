@@ -8,8 +8,8 @@
  //importe do arquivo DAO para acessar dados do aluno no BD 
  var alunosDAO = require('../model/DAO/alunoDAO.js')
 
- //importe de configuração das variáves , funções, constantes e funções gerais  
-var messege = require('./modulo/config.js')
+    //importe de configuração das variáves , funções, constantes e funções gerais  
+    var messege = require('./modulo/config.js')
 
 
 //Inserir o novo Aluno
@@ -40,13 +40,48 @@ const inserirAluno =  async function (dadosAluno) {
 }
 
 //Atualizar um Aluno existente 
-const atualizarAluno = function (dadosAluno) {
+const atualizarAluno = async function (dadosAluno, idAluno) {
+    
+    // Validação para tratar campos obrigatorios e quantidade de caracteres 
+    if( dadosAluno.nome == ""             || dadosAluno.nome == undefined            || dadosAluno.nome.length > 100           ||
+        dadosAluno.rg == ""               || dadosAluno.rg == undefined              || dadosAluno.rg.length > 15              || 
+        dadosAluno.cpf == ""              || dadosAluno.cpf == undefined             || dadosAluno.cpf.length > 18             || 
+        dadosAluno.data_nascimento == ""  || dadosAluno.data_nascimento == undefined || dadosAluno.data_nascimento.length > 10 || 
+        dadosAluno.email == ""            || dadosAluno.email == undefined           || dadosAluno.email.length > 100          
+    )
+    {
+        return messege.ERRO_REQUIRED_FIELD //Status code 400
+        //Validação de ID
+    }else if(idAluno == "" || idAluno == undefined || isNaN(idAluno) ){
 
+            return messege.ERRO_INVALID_ID;
+    }else{
+        //adiciona o ID do aluno no JSON dos dados
+        dadosAluno.id = idAluno
+
+        let resultDadosAlunos = await alunosDAO.updataAluno(dadosAluno)
+        
+        if (resultDadosAlunos) {
+            return messege.SUCCESS_UPDATED_ITEM; //status 200
+        }else
+        return messege.ERRO_INTERNAL_SERVER; //500
+    }
 }
 
 //Excluir um aluno existente
-const deletarAluno = function (id) {
+const deletarAluno =  async function (id) {
 
+    let dadosAluno = await alunosDAO.deletarAluno()
+    let alunoId = id
+    
+    if (alunoId == "" || alunoId == undefined || alunoId == isNaN) {
+        
+        return messege.ERRO_INVALID_ID
+    }else  {
+        dadosAlunosJson.quantidade = dadosAluno.length
+        dadosAlunosJson.alunos = dadosAluno
+        return dadosAlunosJson
+    }
 }
 
 //Retorna a lista de todos os alunos 
@@ -76,5 +111,7 @@ const getBuscarAlunoID = async function (id) {
 
 module.exports = {
     getAlunos,
-    inserirAluno
+    inserirAluno,
+    atualizarAluno,
+    deletarAluno
 }

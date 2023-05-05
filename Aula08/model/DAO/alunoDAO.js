@@ -40,12 +40,40 @@ const inserirAluno =  async function (dadosAluno) {
 }
 
 //Atualizar um Aluno existente 
-const updataAluno = function (dadosAluno) {
+const updataAluno = async function (dadosAluno) {
 
+    let sql=`update tbl_aluno set
+                        nome = '${dadosAluno.nome}' ,
+                        rg = '${dadosAluno.rg}' ,
+                        cpf = '${dadosAluno.cpf}', 
+                        data_nascimento = '${dadosAluno.data_nascimento}', 
+                        email = '${dadosAluno.email}'
+                    where id = ${dadosAluno.id};`
+    
+    
+    
+    //Execulta o script do Banco de dados
+    let resultStatus = await Prisma.$executeRawUnsafe(sql)
+
+    if(resultStatus){
+        return true;
+    }else{
+        return true;
+    }
 }
 
 //Deletar um aluno existente
-const deletarAluno = function (id) {
+const deletarAluno =  async function (id) {
+
+    let sql =  delete 'from tbl_aluno where id = ${id}'
+
+    let idDeleteAluno = await Prisma.$executeRawUnsafe(sql)
+
+    if (idDeleteAluno.length>0) {
+        return idDeleteAluno
+    } else {
+        return false
+    }
 
 }
 
@@ -81,6 +109,8 @@ const selectBYAlunoID = async function (id) {
 
 module.exports = {
     selectAllAlunoID,
-    inserirAluno
+    inserirAluno,
+    updataAluno,
+    deletarAluno
     
 }

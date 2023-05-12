@@ -10,22 +10,24 @@
  const ERRO_INVALID_ID ={status:400, message:'O ID informado está invalido'}
  const ERRO_INTERNAL_SERVER = {status : 500,  message : 'Devido a um erro interno no servidor, não foi prossivel' }   
  const ERRO_INVALID_CONTENT_TYPE = {status : 415,  message : 'O tipo de mídia no tipo de conteúdo da solicitação não é compativel  pelo servidor. Tipo aceito: Ex[application/json]' }   
- const ERRO_ID_INCORRET = {status : 400,  message : 'erro de ID' }   
-
+ const ERRO_ID_INCORRET = {status : 400,  message : 'erro de ID' }
+ const ERRO_NOT_FOUND = {status : 404,  message : 'Nenhum item encontrado na requisição'}
 //**************************************MESSAGENS DE SUCCESSO***************************************/
  
  const SUCCESS_CREATD_ITEM = {status: 201, message : 'Item criado com sucesso'}
  const SUCCESS_UPDATED_ITEM = {status: 200, message : 'Item item atualizado com sucesso'}
+ const SUCCESS_REQUEST = {status: 200, message : 'Requisição bem sucedida'}
  
 
  module.exports = {
      ERRO_REQUIRED_FIELD,
-     SUCCESS_CREATD_ITEM,
      ERRO_INTERNAL_SERVER,
      ERRO_INVALID_ID,
      SUCCESS_UPDATED_ITEM,
+     SUCCESS_REQUEST,
      ERRO_INVALID_CONTENT_TYPE,
-     ERRO_ID_INCORRET
-     
+     ERRO_ID_INCORRET,
+     SUCCESS_CREATD_ITEM,
+     ERRO_NOT_FOUND
      
  }

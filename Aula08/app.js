@@ -67,18 +67,36 @@ app.get('/v1/lion-school/aluno', cors(), async function (request, response) {
     //Recebe os dados da controller de aluno
     let dadosAlunos =await controllerAluno.getAlunos()
 
+
+    response.status(dadosAlunos.status)
+    response.json(dadosAlunos)
+
+
+
+
     //Valida se existe dados de alunos 
-    if(dadosAlunos){
-        response.json(dadosAlunos)
-        response.status(200)
-    }else{
-        response.json();
-        response.status(404)
-    }
+    // if(dadosAlunos){
+    //     response.json(dadosAlunos)
+    //     response.status(200)
+    // }else{
+    //     response.json();
+    //     response.status(404)
+    // }
 
 })
 //EndPoint: retorna o aluno filtrando pelo ID
 app.get('/v1/lion-school/aluno/:id', cors(), async function (request, response) {
+
+        let idAluno = request.params.id;
+        let dadosAluno = await controllerAluno.getBuscarAlunoID(idAluno);
+
+
+        response.status(dadosAluno.status)
+        response.json(dadosAluno)
+
+
+
+
 })
 
 //EndPoint: insere um dado novo 

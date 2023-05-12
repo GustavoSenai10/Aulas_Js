@@ -30,7 +30,7 @@ const inserirAluno =  async function (dadosAluno) {
     )`
   
     //Execulta o script no MySql
-    let resultstatus = await Prisma.$executeRawUnsafe(sql)
+    let resultstatus = await Prisma.$executeRawUnsafe(sql);
   
     if(resultstatus)
         return true;
@@ -58,7 +58,7 @@ const updataAluno = async function (dadosAluno) {
     if(resultStatus){
         return true;
     }else{
-        return true;
+        return false;
     }
 }
 
@@ -77,7 +77,7 @@ const deletarAluno =  async function (id) {
 
 }
 
-//Retorna a lista de todos os alunos 
+//Retorna a lista de todos os alunos  pelo nome
 const getAlunos = function () {
 
 }
@@ -104,13 +104,41 @@ const selectAllAlunoID = async function (id) {
 
 //Retorna o aluno filtrado pelo ID  
 const selectBYAlunoID = async function (id) {
+    
+    let sql = `select * from tbl_aluno where id = ${id}`
 
+    //$queryRawUnsafe() permite interpretar uma variável como sendo um ScriptMYSQL
+    //$queryRaw('select * from tbl_aluno') - permite interpretar o script sql direto no metodo 
+    let rsAluno = await Prisma.$queryRawUnsafe(sql)
+
+    //Valida se o banco de dados retornou algum registro
+    if (rsAluno.length > 0)
+        return rsAluno
+    else
+        return false
+
+}
+
+
+//Retorna o ultimo ID inserido no Banco de Dados
+const selectLastID = async function (id) {
+    
+    let sql = 'select * from tbl_aluno order by id desc limit 1;'
+
+    let rsAluno = await Prisma.$executeRawUnsafe(sql);
+
+    if (rsAluno.length>0) {
+        return rsAluno
+    }else
+        return false
 }
 
 module.exports = {
     selectAllAlunoID,
     inserirAluno,
     updataAluno,
-    deletarAluno
+    selectBYAlunoID,
+    deletarAluno,
+    selectLastID
     
 }
